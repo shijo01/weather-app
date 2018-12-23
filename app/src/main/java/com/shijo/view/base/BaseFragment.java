@@ -1,7 +1,9 @@
 package com.shijo.view.base;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.ColorRes;
@@ -71,6 +73,13 @@ public abstract class BaseFragment extends Fragment implements BaseViewContract 
 
   public boolean hasPermissions(String... permissions) {
     return mActivity.hasPermissions(permissions);
+  }
+
+  @TargetApi(Build.VERSION_CODES.M)
+  public void requestPermissionsSafely(String[] permissions, int requestCode) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      mActivity.requestPermissionsSafely(permissions, requestCode);
+    }
   }
 
   public ActivityComponent getActivityComponent() {
